@@ -37,9 +37,7 @@ async def main():
         return
 
     async with async_playwright() as p:
-        # Use headless=True in production
-        is_github_actions = os.getenv("GITHUB_ACTIONS") == "true"
-        browser = await p.chromium.launch(headless=is_github_actions or True) 
+        browser = await p.chromium.launch(headless=True) 
         context = await browser.new_context()
         page = await context.new_page()
 
@@ -47,8 +45,7 @@ async def main():
         print("--- Scraping Codes ---")
         try:
             await page.goto("https://kingshot.net/gift-codes")
-            # Wait a moment for dynamic content to load just in case
-            await asyncio.sleep(10) 
+            await asyncio.sleep(30) 
             html_content = await page.content()
             codes = parse_kingshot_codes(html_content)
             
@@ -73,22 +70,20 @@ async def main():
             for code in codes:
                 try:
                     await page.goto(url)
+                    await asyncio.sleep(5)
                     await page.fill('input[placeholder*="Player ID"]', fid)
                     await page.click('span:has-text("Login")')
-                    await asyncio.sleep(2)
+                    await asyncio.sleep(5)
                     await page.fill('input[placeholder*="Gift Code"]', code)
                     await page.click('div.exchange_btn:has-text("Confirm")')
                     
                     # Wait for site to process
-                    await asyncio.sleep(2) 
+                    await asyncio.sleep(5) 
                     print(f"  Attempted {code} for {fid}")
                 except Exception as e:
                     print(f"  Error for {fid} on {code}: {e}")
 
-            # Random sleep between 10-20 seconds before moving to the NEXT member
-            cooldown = random.uniform(10, 20)
-            print(f"Waiting {cooldown:.2f}s before next member to prevent IP block...")
-            await asyncio.sleep(cooldown)
+            await asyncio.sleep(random.uniform(0, 10))
 
         await browser.close()
 
