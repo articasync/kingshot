@@ -1,49 +1,73 @@
 import asyncio
 import os
 import random
-import requests
 from bs4 import BeautifulSoup
 from playwright.async_api import async_playwright
 
-def get_active_kingshot_codes(url):
-    headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
-    }
-    
-    try:
-        response = requests.get(url, headers=headers)
-        response.raise_for_status()
-        soup = BeautifulSoup(response.text, 'html.parser')
+def parse_kingshot_codes(html_content):
+    soup = BeautifulSoup(html_content, 'html.parser')
+    active_codes = []
+
+    containers = soup.find_all('div', class_='space-y-2')
+
+    for container in containers:
+        code_element = container.find('p', class_='font-mono text-xl font-bold tracking-wider')
+        status_element = container.find('span')
         
-        active_codes = []
+        if code_element and status_element:
+            code_text = code_element.get_text(strip=True)
+            status_text = status_element.get_text(strip=True)
 
-        containers = soup.find_all('div', class_='space-y-2')
+            if "Expires:" in status_text and "Expired" not in status_text:
+                active_codes.append(code_text)
 
-        for container in containers:
-            code_element = container.find('p', class_='font-mono text-xl font-bold tracking-wider')
-            status_element = container.find('span')
-            
-            if code_element and status_element:
-                code_text = code_element.get_text(strip=True)
-                status_text = status_element.get_text(strip=True)
+    return active_codes
 
-                if "Expires:" in status_text and "Expired" not in status_text:
-                    active_codes.append(code_text)
+async def main():
+    alliance_file = os.path.join(os.path.dirname(__file__), "alliance.txt")
+    if not os.path.exists(alliance_file):
+        print("Missing alliance.txt file!")
+        return
 
-        return active_codes
+    with open(alliance_file, "r") as f:
+        all_members = [line.strip() for line in f.readlines() if line.strip()]
 
-    except requests.exceptions.RequestException as e:
-        print(f"Connection error: {e}")
-        return []
+    if not all_members:
+        print("No members found in alliance.txt!")
+        return
 
-async def redeem_for_alliance(members, codes):
     async with async_playwright() as p:
-        browser = await p.chromium.launch(headless=True)
+        # Use headless=True in production
+        is_github_actions = os.getenv("GITHUB_ACTIONS") == "true"
+        browser = await p.chromium.launch(headless=is_github_actions or True) 
         context = await browser.new_context()
         page = await context.new_page()
-        url = "https://ks-giftcode.centurygame.com/"
 
-        for fid in members:
+        # --- 1. Scrape Active Codes Using Playwright ---
+        print("--- Scraping Codes ---")
+        try:
+            await page.goto("https://kingshot.net/gift-codes")
+            # Wait a moment for dynamic content to load just in case
+            await asyncio.sleep(3) 
+            html_content = await page.content()
+            codes = parse_kingshot_codes(html_content)
+            
+            print(f"--- Found {len(codes)} Valid Codes ---")
+            for code in codes:
+                print(f"Code: {code}")
+        except Exception as e:
+            print(f"Error scraping codes: {e}")
+            codes = []
+
+        if not codes:
+            print("No valid codes found!")
+            await browser.close()
+            return
+
+        # --- 2. Redeem Codes ---
+        url = "https://ks-giftcode.centurygame.com/"
+        
+        for fid in all_members:
             print(f"=== Starting Alliance Member: {fid} ===")
             
             for code in codes:
@@ -68,23 +92,5 @@ async def redeem_for_alliance(members, codes):
 
         await browser.close()
 
-async def main():
-    alliance_file = os.path.join(os.path.dirname(__file__), "alliance.txt")
-    if os.path.exists(alliance_file):
-        with open(alliance_file, "r") as f:
-            all_members = [line.strip() for line in f.readlines() if line.strip()]
-        url = "https://kingshot.net/gift-codes"
-        codes = get_active_kingshot_codes(url)
-        print(f"--- Found {len(codes)} Valid Codes ---")
-        for code in codes:
-            print(f"Code: {code}")
-        if codes and all_members:
-            await redeem_for_alliance(all_members, codes)
-        else:
-            print("No valid codes or missing members!")
-    else:
-        print("Missing alliance.txt file!")
-
 if __name__ == "__main__":
-    # GitHub Actions command line execution
     asyncio.run(main())
