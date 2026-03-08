@@ -38,14 +38,22 @@ async def main():
 
     async with async_playwright() as p:
         browser = await p.chromium.launch(headless=True) 
-        context = await browser.new_context()
+        
+        # Add a realistic User-Agent to the context
+        context = await browser.new_context(
+            user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+        )
         page = await context.new_page()
+        
+        # Apply stealth techniques to the page
+        from playwright_stealth import stealth_async
+        await stealth_async(page)
 
         # --- 1. Scrape Active Codes Using Playwright ---
         print("--- Scraping Codes ---")
         try:
             await page.goto("https://kingshot.net/gift-codes")
-            await asyncio.sleep(30) 
+            await asyncio.sleep(10) 
             html_content = await page.content()
             codes = parse_kingshot_codes(html_content)
             
@@ -70,18 +78,16 @@ async def main():
             for code in codes:
                 try:
                     await page.goto(url)
-                    await asyncio.sleep(5)
+                    await asyncio.sleep(2)
                     await page.fill('input[placeholder*="Player ID"]', fid)
                     await page.click('span:has-text("Login")')
-                    await asyncio.sleep(5)
+                    await asyncio.sleep(2)
                     await page.fill('input[placeholder*="Gift Code"]', code)
                     await page.click('div.exchange_btn:has-text("Confirm")')
-                    
-                    # Wait for site to process
-                    await asyncio.sleep(5) 
-                    print(f"  Attempted {code} for {fid}")
+                    await asyncio.sleep(2) 
+                    print(f"  Input {code} for {fid}")
                 except Exception as e:
-                    print(f"  Error for {fid} on {code}: {e}")
+                    print(f"  Error for {code} on {fid}: {e}")
 
             await asyncio.sleep(random.uniform(0, 10))
 
