@@ -2,7 +2,7 @@ name: Scrape and Redeem Kingshot Codes
 
 on:
   schedule:
-    - cron: '0 8 * * *' # Run at 08:00 UTC every day
+    - cron: '0 0 * * *' # Run at 00:00 UTC every day
   workflow_dispatch: # Allows manual triggering
 
 jobs:
@@ -39,4 +39,6 @@ jobs:
         run: playwright install chromium
 
       - name: Run script
+        env:
+          PYTHONUNBUFFERED: "1"
         run: python main.py
