@@ -57,17 +57,31 @@ async def main():
             html_content = await page.content()
             codes = parse_kingshot_codes(html_content)
             
-            print(f"--- Found {len(codes)} Valid Codes ---")
-            for code in codes:
-                print(f"Code: {code}")
+            print(f"--- Found {len(codes)} Total Valid Codes ---")
         except Exception as e:
             print(f"Error scraping codes: {e}")
             codes = []
 
-        if not codes:
-            print("No valid codes found!")
+        # --- Filter out already redeemed codes ---
+        redeemed_file = os.path.join(os.path.dirname(__file__), "redeemed.txt")
+        redeemed_codes = set()
+        if os.path.exists(redeemed_file):
+            with open(redeemed_file, "r") as f:
+                redeemed_codes = {line.strip() for line in f.readlines() if line.strip()}
+        
+        # Only keep codes we haven't tried yet
+        new_codes = [c for c in codes if c not in redeemed_codes]
+        
+        print(f"--- Found {len(new_codes)} NEW Codes ---")
+        for code in new_codes:
+            print(f"Code: {code}")
+
+        if not new_codes:
+            print("No new codes to try!")
             await browser.close()
             return
+        
+        codes = new_codes
 
         # --- 2. Redeem Codes ---
         url = "https://ks-giftcode.centurygame.com/"
@@ -92,6 +106,13 @@ async def main():
             await asyncio.sleep(random.uniform(0, 10))
 
         await browser.close()
+
+        # --- Save the tried codes to redeemed.txt so we don't try them again next time ---
+        with open(redeemed_file, "a") as f:
+            for code in codes:
+                if code not in redeemed_codes:
+                    f.write(code + "\n")
+        print("Finished and saved new codes to redeemed.txt!")
 
 if __name__ == "__main__":
     asyncio.run(main())
