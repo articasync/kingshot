@@ -43,11 +43,11 @@ async def main():
         context = await browser.new_context(
             user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
         )
-        page = await context.new_page()
         
-        # Apply stealth techniques to the page
-        from playwright_stealth import stealth_async
-        await stealth_async(page)
+        # Apply stealth trick manually: hide the webdriver flag from Cloudflare
+        await context.add_init_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
+        
+        page = await context.new_page()
 
         # --- 1. Scrape Active Codes Using Playwright ---
         print("--- Scraping Codes ---")
