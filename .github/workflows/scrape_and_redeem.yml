@@ -1,0 +1,27 @@
+name: Scrape and Redeem Kingshot Codes
+
+on:
+  schedule:
+    - cron: '0 8 * * *' # Run at 08:00 UTC every day
+  workflow_dispatch: # Allows manual triggering
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          playwright install chromium
+
+      - name: Run script
+        run: python main.py
