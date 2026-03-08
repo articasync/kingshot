@@ -48,7 +48,7 @@ async def main():
         try:
             await page.goto("https://kingshot.net/gift-codes")
             # Wait a moment for dynamic content to load just in case
-            await asyncio.sleep(3) 
+            await asyncio.sleep(10) 
             html_content = await page.content()
             codes = parse_kingshot_codes(html_content)
             
