@@ -186,3 +186,23 @@ No new codes to try!
 --- Found 1 Total Valid Codes ---
 --- Found 0 NEW Codes ---
 No new codes to try!
+--- Scraping Codes ---
+--- Found 2 Total Valid Codes ---
+--- Found 1 NEW Codes ---
+Code: KS0803
+=== Starting Alliance Member: 34899276 ===
+  Error for KS0803 on 34899276: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("span:has-text(\"Login\")")
+
+=== Starting Alliance Member: 186251837 ===
+  Error for KS0803 on 186251837: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("span:has-text(\"Login\")")
+
+=== Starting Alliance Member: 35767275 ===
+  Error for KS0803 on 35767275: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("span:has-text(\"Login\")")
+
+Finished and saved new codes to redeemed.txt!
