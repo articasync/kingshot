@@ -238,3 +238,36 @@ No new codes to try!
 --- Found 1 Total Valid Codes ---
 --- Found 0 NEW Codes ---
 No new codes to try!
+--- Scraping Codes ---
+--- Found 3 Total Valid Codes ---
+--- Found 2 NEW Codes ---
+Code: KS0810
+Code: HAPPYCATDAY
+=== Starting Alliance Member: 34899276 ===
+  Error for KS0810 on 34899276: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("span:has-text(\"Login\")")
+
+  Error for HAPPYCATDAY on 34899276: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("span:has-text(\"Login\")")
+
+=== Starting Alliance Member: 186251837 ===
+  Error for KS0810 on 186251837: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("span:has-text(\"Login\")")
+
+  Error for HAPPYCATDAY on 186251837: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("span:has-text(\"Login\")")
+
+=== Starting Alliance Member: 35767275 ===
+  Error for KS0810 on 35767275: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("span:has-text(\"Login\")")
+
+  Error for HAPPYCATDAY on 35767275: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("span:has-text(\"Login\")")
+
+Finished and saved new codes to redeemed.txt!
