@@ -271,3 +271,23 @@ Call log:
   - waiting for locator("span:has-text(\"Login\")")
 
 Finished and saved new codes to redeemed.txt!
+--- Scraping Codes ---
+--- Found 4 Total Valid Codes ---
+--- Found 1 NEW Codes ---
+Code: OFFICIALSTORE08011
+=== Starting Alliance Member: 34899276 ===
+  Error for OFFICIALSTORE08011 on 34899276: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("span:has-text(\"Login\")")
+
+=== Starting Alliance Member: 186251837 ===
+  Error for OFFICIALSTORE08011 on 186251837: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("span:has-text(\"Login\")")
+
+=== Starting Alliance Member: 35767275 ===
+  Error for OFFICIALSTORE08011 on 35767275: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("span:has-text(\"Login\")")
+
+Finished and saved new codes to redeemed.txt!
