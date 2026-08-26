@@ -375,3 +375,7 @@ Call log:
   - waiting for locator("span:has-text(\"Login\")")
 
 Finished and saved new codes to redeemed.txt!
+--- Scraping Codes ---
+--- Found 2 Total Valid Codes ---
+--- Found 0 NEW Codes ---
+No new codes to try!
