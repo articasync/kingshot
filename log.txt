@@ -461,3 +461,7 @@ Code: KS0907
 === Starting Alliance Member: 35767275 ===
   Input KS0907 for 35767275
 Finished and saved new codes to redeemed.txt!
+--- Scraping Codes ---
+--- Found 3 Total Valid Codes ---
+--- Found 0 NEW Codes ---
+No new codes to try!
