@@ -523,3 +523,14 @@ Code: KS0919
 === Starting Alliance Member: 35767275 ===
   Input KS0919 for 35767275
 Finished and saved new codes to redeemed.txt!
+--- Scraping Codes ---
+--- Found 3 Total Valid Codes ---
+--- Found 1 NEW Codes ---
+Code: JPHolidaySEP
+=== Starting Alliance Member: 34899276 ===
+  Input JPHolidaySEP for 34899276
+=== Starting Alliance Member: 186251837 ===
+  Input JPHolidaySEP for 186251837
+=== Starting Alliance Member: 35767275 ===
+  Input JPHolidaySEP for 35767275
+Finished and saved new codes to redeemed.txt!
