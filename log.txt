@@ -604,3 +604,18 @@ No new codes to try!
 --- Found 1 Total Valid Codes ---
 --- Found 0 NEW Codes ---
 No new codes to try!
+--- Scraping Codes ---
+--- Found 3 Total Valid Codes ---
+--- Found 2 NEW Codes ---
+Code: WELLDONE
+Code: KS1005
+=== Starting Alliance Member: 34899276 ===
+  Input WELLDONE for 34899276
+  Input KS1005 for 34899276
+=== Starting Alliance Member: 186251837 ===
+  Input WELLDONE for 186251837
+  Input KS1005 for 186251837
+=== Starting Alliance Member: 35767275 ===
+  Input WELLDONE for 35767275
+  Input KS1005 for 35767275
+Finished and saved new codes to redeemed.txt!
