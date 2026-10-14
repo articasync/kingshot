@@ -654,3 +654,14 @@ Code: CHALLENGE26
 === Starting Alliance Member: 35767275 ===
   Input CHALLENGE26 for 35767275
 Finished and saved new codes to redeemed.txt!
+--- Scraping Codes ---
+--- Found 3 Total Valid Codes ---
+--- Found 1 NEW Codes ---
+Code: IG200KS
+=== Starting Alliance Member: 34899276 ===
+  Input IG200KS for 34899276
+=== Starting Alliance Member: 186251837 ===
+  Input IG200KS for 186251837
+=== Starting Alliance Member: 35767275 ===
+  Input IG200KS for 35767275
+Finished and saved new codes to redeemed.txt!
