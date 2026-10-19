@@ -692,3 +692,7 @@ Code: KS1017
   Input VIP1017 for 35767275
   Input KS1017 for 35767275
 Finished and saved new codes to redeemed.txt!
+--- Scraping Codes ---
+--- Found 3 Total Valid Codes ---
+--- Found 0 NEW Codes ---
+No new codes to try!
